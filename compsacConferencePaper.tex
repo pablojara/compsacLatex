@@ -33,7 +33,10 @@ accaminero@scc.uned.es}
 \maketitle
 
 \begin{abstract}
-More and more cases of use of light virtualization and distributed computing. Both technologies offer great advantages in the development and deployment of software applications. Combined with cloud computing, they constitute a tool with great potential and foreseeable expansion in the near future. During this work, a distributed computing cluster based on light virtualization is deployed and a container scheduling algorithm is developed, finally applying a performance evaluation of the algorithm developed for the extraction of conclusions.
+More and more cases of use of light virtualization and distributed computing. Both technologies offer great advantages in the development and deployment of software applications.
+Combined with cloud computing, they constitute a tool with great potential and foreseeable expansion in the near future.
+During this work, a distributed computing cluster based on light virtualization is deployed and a container scheduling algorithm is developed, finally applying a
+performance evaluation of the algorithm developed for the extraction of conclusions.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -44,6 +47,32 @@ virtualization, container, distributed computing, cluster, scheduling algorithm
 During the last years, distributed computing has taken a key role in the research and development of information technologies. More and more proyects are being developed using this paradigm due to the advantages it offers compared to centralized or monolithic computing. This type of paradigm, makes use of container and container orquestration technologies to provide high availability, reliability and resilience for the applications that run on top of them. One of the key advantages of this technologies is the independency of the hardware platform, so they support all type of CPU architectures and configurations, including low-cost computers like the Raspberry Pi. With the use of this paradigm, new problems arise; process planification inside the cluster is a key factor to assure a good performance of the system and maintain the quality of service. The aim of this study is, combinig these ideas, deploy a Kubernetes clúster over low-cost Raspberry Pi computers and perform an evaluation on the influence of the planification algorithm on the capabilities of the containers deployed on the cluster.
 
 \section{State Of Art}
+The growth of the use of light virtualization technologises or containers is evident in the vast majority of areas where previously the heavy virtualization was used.
+Most of the times, the deployment of an application is done in a distributed computing environment, in the cloud or in a local cluster. When deploying
+applications in distributed environments a container orquestration tool like Kubernetes is needed. Kubernetes manages the deployment of the application introducing
+the pod concept which is the basic deployment unit in the system. A pod is capable of running one or more containers and every pod has to be deployed in 
+a selected node of the distributed computing environment which will be selected by Kubernetes based on the resources required by the node to run smoothly and in some 
+affinities and taints which has to be configured depending on the type of deployment. Studies have been conducted that address the effects of the deployment 
+configuration in the performance and robustness of the application. In [5] a performance model of Kubernetes application is obtained with the application of benchmarks.
+It defends that for applications with more than eight containers, the bandwith and final throughput is higher if every container is deployed in a separate pod. This suggest
+that deploying more pods with fewer containers in each pod, is better in terms of performance and bandwith availability. In [6], from the same authors, the 
+effects of the type of deployment explained above are studied and detailed depending on the nature of the application and its services. The paper makes a dinstinction
+between high CPU and I/O demanding services and high bandwith demand. At the same time, it makes a distinction between service container, that are executing full time,
+and job containers, which are created and destroyed with each execution. 
+For CPU and I / O intensive applications it is argued that if there is more containers than nodes in the cluster, the best option is to group all the 
+containers, however, it is important to divide the pods among all possible nodes, so it is recommended to divide the number of containers by the number of nodes 
+available in the cluster and deploy a pod on each node. If there is a smaller number of containers than nodes, a container in each pod and a pod in each node. 
+For the second type of application, intensive use of network resources, it is recommended the same policy applied previously in the case of type containers
+service, while for job-type containers it is always recommended to deploy a single container per pod. This is due to the fact that the network overload in a pod
+increases significantly when several containers are executed, since they all share the same IP address, unique in each pod.
+
+These studies are very useful when making decisions about the deployment of an application on infrastructures with container orchestration.
+Despite all this, more precise adjustments may be required in the process of assignment of a node to each pod. If the application is based on a large number of
+job-type containers that are created and destroyed proportionally with the load of work, it may be the case that the default Kubernetes planner is not
+enough. This scheduler takes into account resources such as CPU and memory, but it does not take into account the network congestion at the time of assignment 
+or the overhead of the interfaces During this work, a Kubernetes-based work environment will be deployed and a container planning algorithm based on 
+resource metrics per node and network congestion will be developed.
+
 
 \subsection{Maintaining the Integrity of the Specifications}
 
