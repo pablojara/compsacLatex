@@ -3,10 +3,31 @@
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
-\usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[T1]{fontenc}
+\usepackage[noend]{algpseudocode}
+\newcommand{\algmargin}{\the\ALG@thistlm}
+\makeatother
+\newlength{\whilewidth}
+\settowidth{\whilewidth}{\algorithmicwhile\ }
+\algdef{SE}[parWHILE]{parWhile}{EndparWhile}[1]
+  {\parbox[t]{\dimexpr\linewidth-\algmargin}{%
+     \hangindent\whilewidth\strut\algorithmicwhile\ #1\ \algorithmicdo\strut}}{\algorithmicend\ \algorithmicwhile}%
+\algnewcommand{\parState}[1]{\State%
+  \parbox[t]{\dimexpr\linewidth-\algmargin}{\strut #1\strut}}
+\algdef{SE}[parIF]{parIf}{EndParIf}[1]
+  {\parbox[t]{\dimexpr\linewidth-\algmargin}{%
+     \hangindent\whilewidth\strut\algorithmicwhile\ #1\ \algorithmicdo\strut}}{\algorithmicend\ \algorithmicwhile}%
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -82,7 +103,7 @@ or the overhead of the interfaces During this work, a Kubernetes and Raspberry P
 based on resource metrics per node and network congestion will be developed.
 
 
-\subsection{Work Environment Preparation}
+\section{Work Environment Preparation}
 For the testing environment, four Raspberry Pi 3 Model B and one AMD64 Intel Core i7 architecture computer have been used. They have been connected using a five 
 ports etehernet switch. A Kubernetes cluster has been deployed over this hardware infraestructure configuring the AMD computer as the master node and
 the Raspberries as worker nodes, and tainting the master node to avoid the execution of pods on it. Prometheus Operator[10] 
@@ -93,7 +114,7 @@ container planification algorithm which will select the best node for a certain 
 
 
 
-\subsection{Container Planification Algorithm Development}
+\section{Container Planification Algorithm Development}
 The Kubernetes scheduling algorithm, from now on, scheduler, has the only mission of scheduling
 the just created pods to a cluster node. It is a process executing with the rest of components
 in the master node. When a new pod is created, an event is created ant the Kubernetes scheduler is 
@@ -109,6 +130,52 @@ The scheduler is written in Golang, just like the rest of the Kubernetes project
 performance is a key part of the system, and in some cases it become the bottleneck of the cluster.
 For this work, the developed algorithm will only implement the last two phases of the original
 scheduling algorithm, avoiding the filtering phase as it is out of scope in the work.
+
+
+
+\begin{algorithm}
+\caption{Custom Scheduler}\label{Kubernetes}
+\begin{algorithmic}[1]
+\Function{calculatePriorities}{}
+\For{\textit{int i = 0; i < 4; i++}}
+\If {$\textit nodeMetrics[i].cpu < bestCpu$}
+\State $\textit bestCpu \gets nodeMetrics[i].cpu[i]$
+\State $\textit bestCpuNode \gets nodeMetrics[i].name$
+\EndIf
+\If {$\textit nodeMetrics[i].memory < bestMemory$}
+\State $\textit bestMemory \gets nodeMetrics[i].memory[i]$
+\State $\textit bestMemoryNode \gets nodeMetrics[i].name$
+\EndIf
+\If {$\textit nodeMetrics[i].recPackets < bestRecPackets$}
+\State $\textit bestRecPackets \gets nodeMetrics[i].recPackets[i]$
+\State $\textit bestRecPacketsNode \gets nodeMetrics[i].name$
+\EndIf
+\If {$\textit nodeMetrics[i].sentPackets < bestSentPackets$}
+\State $\textit bestSentPackets \gets nodeMetrics[i].sentPackets[i]$
+\State $\textit bestSentPacketsNode \gets nodeMetrics[i].name$
+\EndIf
+\If {$\textit nodeMetrics[i].bandwidth > bestBandwidth$}
+\State $\textit bestBandwidth \gets nodeMetrics[i].bandwidth[i]$
+\State $\textit bestBandwidthNode \gets nodeMetrics[i].name$
+\EndIf
+\If {$\textit nodeMetrics[i].diskIO < bestDiskIO$}
+\State $\textit bestDiskIO \gets nodeMetrics[i].diskIO[i]$
+\State $\textit bestDiskIONode \gets nodeMetrics[i].name$
+\EndIf
+\EndFor
+\BState
+\State $\textit nodePriorities[bestCpuNode]+=3$
+\State $\textit nodePriorities[bestMemoryNode]+=2$
+\State $\textit nodePriorities[bestRecPacketsNode]+=1$
+\State $\textit nodePriorities[bestSentPacketsNode]+=1$
+\State $\textit nodePriorities[bestBandwidthNode]+=2$
+\State $\textit nodePriorities[bestDiskIONode]+=1$
+\BState
+\State \textbf{return} $nodePriorities$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
 
 The scheduler that has been developed makes use of the metrics that Prometheus exports on each node through the node exporters.
 This means that requests to know the status of each node will be made to each of the node exporters since it is desired to know
@@ -129,10 +196,9 @@ The pseudocode for this logic can be seen in the figure below.
 The scheduler code is compiled and packaged in a container and deployed in a pod, and has to be allowed with a role based access account to schedule
 and allocate new pods.
 
-\subsection{Performance Evaluation}
+\section{Performance Evaluation}
 
-
-
+Performance is really important for an scheduling algorithm.
 
 
 
