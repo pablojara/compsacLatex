@@ -9,7 +9,8 @@ La forma de trabajo que sigo es la siguiente:
 $ ./LATEAR paper
 
 
-2. El script LATEAR genera el fichero paper.pdf, pero también genera una copia de la versión actual del paper (fichero tex y pdf) de la siguiente forma. Se copia el fichero paper.tex y paper.pdf en el fichero cuyo nombre es NOMBREPAPER y la fecha actual, donde NOMBREPAPER es un archivo que contiene un nombre descriptivo del paper. Este nuevo fichero se deposita en la carpeta Copias. De esta forma, en la carpeta Copias tendremos ficheros como los siguientes: NetSchedKubernetes-2019.12.25.tex y NetSchedKubernetes-2019.12.25.pdf.
+2. El script LATEAR, de forma automática,  genera el fichero paper.pdf, pero también genera automáticamente una copia de la versión actual del paper (fichero tex y pdf) de la siguiente forma. Se copia el fichero paper.tex y paper.pdf en el fichero cuyo nombre es NOMBREPAPER y la fecha actual, donde NOMBREPAPER es un archivo que contiene un nombre descriptivo del paper. Este nuevo fichero se deposita en la carpeta Copias. De esta forma, en la carpeta Copias tendremos ficheros como los siguientes: NetSchedKubernetes-2019.12.25.tex y NetSchedKubernetes-2019.12.25.pdf.
 
 
+A la hora de trabajar, lo único que hay que hacer es editar el fichero paper.tex con tu editor favorito (yo uso gedit), y luego ejecuto el scrip LATEAR como se indica arriba. De esta forma tendremos el paper en pdf y también la copia del paper (una por cada día que hayamos trabajado en él).
 
