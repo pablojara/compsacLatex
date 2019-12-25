@@ -1,0 +1,35 @@
+latex  $1
+echo "Ejecutado latex ..."
+latex  $1 > /dev/null
+echo "Ejecutado latex ..."
+bibtex $1 > /dev/null
+echo "Ejecutado bibtex ..."
+bibtex $1 | grep Warning
+echo "Ejecutado bibtex ..."
+latex  $1 > /dev/null
+echo "Ejecutado latex ..."
+pages=`latex  $1 | grep pages | awk '{print $5}' | sed 's/[^0-9]*//'`
+
+echo "********** DVI creado correctamente. Creando PDF ... ******************************"
+
+dvipdf  $1.dvi 
+
+
+echo "Contador de palabras del fichero " $1.pdf " : "`pdftotext $1.pdf - | wc -w`
+
+echo "Contador de páginas : " $pages
+echo "********** Finalizando ... ******************************"
+
+nuevoFich=`cat NOMBREPAPER`-`date '+%Y.%m.%d'`
+cp $1.pdf $nuevoFich.pdf
+cp $1.tex $nuevoFich.tex
+
+mv $nuevoFich.pdf Copias/
+mv $nuevoFich.tex Copias/
+
+echo "Moviendo a carpeta Copias ..." $nuevoFich.pdf $nuevoFich.tex
+
+
+
+echo "***************** FIN ******************************"
+rm *.spl  *.lot *.toc   *.blg  *.lof  *.out *~  *.aux *.txt *.ps  
