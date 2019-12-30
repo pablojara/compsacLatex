@@ -92,7 +92,7 @@ In order to deploy containers, this can be done in a cluster of computers. In th
 
 Considering all of this, this work proposes an scheduling algorithm in which the container orchestrator uses the status of the network, along with more information such as the memory or CPU status of the nodes, in order to choose the node of the cluster that will run a container -- this is the main contribution of this work. 
 %Thus, the contributions of this paper are as follows. First, a network-aware algorithm to schedule containers in a cluster is presented, this is the main contribution. 
-Also, this paper presents proof-of-concept implementation of the algorithm on Kubernetes, and a performance evaluation of the algorithm, which has been conducted by deploying Kubernetes on a cluster of microcomputers Raspberry Pi~\cite{VujovicM15}. Raspberry Pi has been chosen because of its low cost and its ability to run docker containers. 
+Also, this paper presents proof-of-concept implementation of the algorithm on Kubernetes, and a performance evaluation of the algorithm, which has been conducted by deploying Kubernetes on a cluster of microcomputers Raspberry Pi~\cite{VujovicM15}. Raspberry Pi has been chosen because of its low cost and its ability to run docker containers. Kubernetes has been chosen because it has been used for compute containers on Raspberry Pi-class edge devices~\cite{Tsai17}, and used to deploy software on the fly on fog resources~\cite{Hong16}. 
 
 This paper is organized as follows. Section~\ref{sec:rel} presents the related work of this paper. Section~\ref{sec:alg} presents the scheduling algorithm which is the main contribution of this work. Section~\ref{sec:eval} details the performance evaluation conducted to illustrate the usefulness of our work. Finally, Section~\ref{sec:conc} concludes the paper and suggests guidelines for future work. 
 
@@ -100,10 +100,7 @@ This paper is organized as follows. Section~\ref{sec:rel} presents the related w
 \section{Related work}\label{sec:rel}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The growth of the use of light virtualization technologies or containers is evident in the vast majority of areas where previously the heavy virtualization was used.
-Most of the times, the deployment of an application is done in a distributed computing environment, in the cloud or in a local cluster. When deploying
-applications in distributed environments a container orchestration tool like Kubernetes is needed. Kubernetes manages the deployment of the application introducing
-the pod concept which is the basic deployment unit in the system. A pod is capable of running one or more containers and every pod has to be deployed in 
+The growth of the use of light virtualization technologies or containers is evident in the vast majority of areas where previously the hardware virtualization was used. Most of the times, the deployment of an application is done in a distributed computing environment, in the cloud or in a local cluster. When deploying applications in distributed environments a container orchestration tool like Kubernetes is needed. Kubernetes manages the deployment of the application introducing the \emph{pod} concept which is the basic deployment unit in the system. A pod is capable of running one or more containers and every pod has to be deployed in 
 a selected node of the distributed computing environment which will be selected by Kubernetes based on the resources required by the node to run smoothly and
 in some affinities and taints which has to be configured depending on the type of deployment. Studies have been conducted that address the effects of the deployment 
 configuration in the performance and robustness of the application. In [5] a performance model of Kubernetes application is obtained with the application of benchmarks.
@@ -238,8 +235,7 @@ In order to illustrate the proposed algorithm, a performance evaluation has been
 
 \textbf{Detalles: Poner foto del cluster de raspberrys, incluir referencias bien puestas con bibtex (en el fichero BIBLIOGRAFIA.bib), pantallazos del prometheus, graficas de resultados}
 
-For the testing environment, four Raspberry Pi 3 Model B and one AMD64 Intel Core i7 architecture computer have been used. They have been connected using a five 
-ports ethernet switch. A Kubernetes cluster has been deployed over this hardware infraestructure configuring the AMD computer as the master node and
+For the testing environment, four Raspberry Pi 3 Model B and one AMD64 Intel Core i7 architecture computer have been used. They have been connected using a five ports ethernet switch. A Kubernetes cluster has been deployed over this hardware infrestructure configuring the AMD computer as the master node and
 the Raspberries as worker nodes, and tainting the master node to avoid the execution of pods on it. Prometheus Operator[10] 
 has also been installed in the cluster, so we are able to monitor the cluster resources usage, CPU and memory occupation, pods distribution and network metrics.
 iPerf tool [12] which allows network monitoring between two or more nodes has also been installed and configured in the cluster, to collect information and metrics
@@ -261,7 +257,7 @@ Performance is really important for an scheduling algorithm.
 \section{Conclusions and future work}\label{sec:conc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Distributed systems spanning infrastructures at different levels (edge/fog/cloud) have gained popularity in the recent years. 
+Distributed systems spanning infrastructures at different levels (edge/fog/cloud) have gained popularity in the recent years, and an appropriate scheduling technique is needed in order to provide QoS to the running applications. 
 
 
 
