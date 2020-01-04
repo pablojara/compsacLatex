@@ -147,60 +147,6 @@ performance is a key part of the system, and in some cases it become the bottlen
 For this work, the developed algorithm will only implement the last two phases of the original
 scheduling algorithm, avoiding the filtering phase as it is out of scope in the work.
 
-
-% Detalles sobre el algoritmo. Explicar qué es nodemetrics, bestbandwidthnode, bestRecPackets... y todas las variables que se utilizan en el algoritmo. 
-
-
-\begin{algorithm}
-
-\caption{Custom Scheduler}\label{Kubernetes}
-\begin{algorithmic}[1]
-\Function{calculatePriorities}{}
-\State Let $nodeMetrics[i].cpu$ be blablabla
-\State Let $bestRecPackets$ be blablabla
-
-\For{\textit{int i = 0; i < 4; i++}}
-\If {$\textit nodeMetrics[i].cpu < bestCpu$}
-\State $\textit bestCpu \gets nodeMetrics[i].cpu[i]$
-\State $\textit bestCpuNode \gets nodeMetrics[i].name$
-\EndIf
-\If {$\textit nodeMetrics[i].memory < bestMemory$}
-\State $\textit bestMemory \gets nodeMetrics[i].memory[i]$
-\State $\textit bestMemoryNode \gets nodeMetrics[i].name$
-\EndIf
-\If {$\textit nodeMetrics[i].recPackets < bestRecPackets$}
-\State $\textit bestRecPackets \gets nodeMetrics[i].recPackets[i]$
-\State $\textit bestRecPacketsNode \gets nodeMetrics[i].name$
-\EndIf
-\If {$\textit nodeMetrics[i].sentPackets < bestSentPackets$}
-\State $\textit bestSentPackets \gets nodeMetrics[i].sentPackets[i]$
-\State $\textit bestSentPacketsNode \gets nodeMetrics[i].name$
-\EndIf
-\If {$\textit nodeMetrics[i].bandwidth > bestBandwidth$}
-\State $\textit bestBandwidth \gets nodeMetrics[i].bandwidth[i]$
-\State $\textit bestBandwidthNode \gets nodeMetrics[i].name$
-\EndIf
-\If {$\textit nodeMetrics[i].diskIO < bestDiskIO$}
-\State $\textit bestDiskIO \gets nodeMetrics[i].diskIO[i]$
-\State $\textit bestDiskIONode \gets nodeMetrics[i].name$
-\EndIf
-\EndFor
-\BState
-\State $\textit nodePriorities[bestCpuNode]+=3$
-\State $\textit nodePriorities[bestMemoryNode]+=2$
-\State $\textit nodePriorities[bestRecPacketsNode]+=1$
-\State $\textit nodePriorities[bestSentPacketsNode]+=1$
-\State $\textit nodePriorities[bestBandwidthNode]+=2$
-\State $\textit nodePriorities[bestDiskIONode]+=1$
-\BState
-\State \textbf{return} $nodePriorities$
-\EndFunction
-\end{algorithmic}
-
-\end{algorithm}
-
-
-
 The scheduler that has been developed makes use of the metrics that Prometheus exports on each node through the node exporters.
 This means that requests to know the status of each node will be made to each of the node exporters since it is desired to know
 the status at that same moment. If they were made to the Prometheus Server, to obtain the measurements you would have to make the 
@@ -212,10 +158,67 @@ user interface. network in use. The ideal node for the assignment with the pod i
 resources at the time of selection. After this, the iPerf metrics are collected and stored into the scheduler container, to feed
 the scheduling algoruthm among the Prometheus metrics.
 
+
 For the node ranking the scheduling algorithm will compare each node metrics, giving, for every metric, a pondered score to the node
 with best metrics. Each metric score has a different value, being CPU, memory and bandwidth the ones with highest weight.
 The priority computation function implements this logic, and is executed for every new pod in the cluster.
 The pseudocode for this logic can be seen in the figure below.
+
+
+\begin{algorithm}
+
+\caption{Network Aware Scheduler}\label{Kubernetes}
+\begin{algorithmic}[1]
+\Function{calculatePriorities}{}
+\State Let $nodeMetrics[i].cpu$ be
+\State Let $bestRecPackets$ be
+
+\For{\textit{int i = 0; i < 4; i++}}
+\If {$\textit nodeMetrics[i].cpu < bestCpu$}
+\State $\textit bestCpu \gets nodeMetrics[i].cpu[i]$
+\State $\textit bestCpuN \gets nodeMetrics[i].name$
+\EndIf
+\If {$\textit nodeMetrics[i].mem < bestMem$}
+\State $\textit bestMem \gets nodeMetrics[i].mem[i]$
+\State $\textit bestMemN \gets nodeMetrics[i].name$
+\EndIf
+\If {$\textit nodeMetrics[i].recPck < bestRecPck$}
+\State $\textit bestRecPck \gets nodeMetrics[i].recPck[i]$
+\State $\textit bestRecPckN \gets nodeMetrics[i].name$
+\EndIf
+\If {$\textit nodeMetrics[i].sentPck < bestSentPck$}
+\State $\textit bestSentPck \gets nodeMetrics[i].sentPck[i]$
+\State $\textit bestSentPckN \gets nodeMetrics[i].name$
+\EndIf
+\If {$\textit nodeMetrics[i].bwidth > bestBwidth$}
+\State $\textit bestBwidth \gets nodeMetrics[i].bwidth[i]$
+\State $\textit bestBwidthN \gets nodeMetrics[i].name$
+\EndIf
+\If {$\textit nodeMetrics[i].diskIO < bestDiskIO$}
+\State $\textit bestDiskIO \gets nodeMetrics[i].diskIO[i]$
+\State $\textit bestDiskION \gets nodeMetrics[i].name$
+\EndIf
+\EndFor
+\BState
+\State $\textit nodePriorities[bestCpuN]+=3$
+\State $\textit nodePriorities[bestMemN]+=2$
+\State $\textit nodePriorities[bestRecPckN]+=1$
+\State $\textit nodePriorities[bestSentPckN]+=1$
+\State $\textit nodePriorities[bestBwithN]+=2$
+\State $\textit nodePriorities[bestDiskION]+=1$
+\BState
+\State \textbf{return} $nodePriorities$
+\EndFunction
+\end{algorithmic}
+
+\end{algorithm}
+
+
+The algorithm makes use of the metrics exported by Prometheus and iperf, being nodeMetrics an array with the metrics for each node, cpu, mem, sentPck, recPck, bwidth and diskIO
+the metrics taken into account for each node in the priority computation function. For every node, each metric is compared with the same metric for the rest of the nodes, and the
+best metric is choosen (in the case of cpu, memory, packets sent and received and disk usage metrics, less is better and for bandwith metric more is better). The node with the best
+metric for each category is stored in bestCpuN , bestMemN, bestRecPckN, bestSentPckN, bestBwidthN and bestDiskION, so, at the end of the computation, scores are asigned to each of
+the nodes, returning an array with the nodes ordered by priority of scheduling.
 
 The scheduler code is compiled and packaged in a container and deployed in a pod, and has to be allowed with a role based access account to schedule
 and allocate new pods.

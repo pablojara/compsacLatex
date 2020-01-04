@@ -22,50 +22,50 @@
 
 \begin{document}
 \begin{algorithm}
-\caption{Custom Scheduler}\label{Kubernetes}
+
+\caption{Network Aware Scheduler}\label{Kubernetes}
 \begin{algorithmic}[1]
 \Function{calculatePriorities}{}
-\State $\textit nodeMetrics[0] \gets {getNodeMetrics}(raspiWorker0)$
-\State $\textit nodeMetrics[1] \gets {getNodeMetrics}(raspiWorker1)$
-\State $\textit nodeMetrics[2] \gets {getNodeMetrics}(raspiWorker2)$
-\State $\textit nodeMetrics[3] \gets {getNodeMetrics}(raspiWorker3)$
-\BState 
+\State Let $nodeMetrics[i].cpu$ be
+\State Let $bestRecPackets$ be
+
 \For{\textit{int i = 0; i < 4; i++}}
 \If {$\textit nodeMetrics[i].cpu < bestCpu$}
 \State $\textit bestCpu \gets nodeMetrics[i].cpu[i]$
-\State $\textit bestCpuNode \gets nodeMetrics[i].name$
+\State $\textit bestCpuN \gets nodeMetrics[i].name$
 \EndIf
-\If {$\textit nodeMetrics[i].memory < bestMemory$}
-\State $\textit bestMemory \gets nodeMetrics[i].memory[i]$
-\State $\textit bestMemoryNode \gets nodeMetrics[i].name$
+\If {$\textit nodeMetrics[i].mem < bestMem$}
+\State $\textit bestMem \gets nodeMetrics[i].mem[i]$
+\State $\textit bestMemN \gets nodeMetrics[i].name$
 \EndIf
-\If {$\textit nodeMetrics[i].recPackets < bestRecPackets$}
-\State $\textit bestRecPackets \gets nodeMetrics[i].recPackets[i]$
-\State $\textit bestRecPacketsNode \gets nodeMetrics[i].name$
+\If {$\textit nodeMetrics[i].recPck < bestRecPck$}
+\State $\textit bestRecPck \gets nodeMetrics[i].recPck[i]$
+\State $\textit bestRecPckN \gets nodeMetrics[i].name$
 \EndIf
-\If {$\textit nodeMetrics[i].sentPackets < bestSentPackets$}
-\State $\textit bestSentPackets \gets nodeMetrics[i].sentPackets[i]$
-\State $\textit bestSentPacketsNode \gets nodeMetrics[i].name$
+\If {$\textit nodeMetrics[i].sentPck < bestSentPck$}
+\State $\textit bestSentPck \gets nodeMetrics[i].sentPck[i]$
+\State $\textit bestSentPckN \gets nodeMetrics[i].name$
 \EndIf
-\If {$\textit nodeMetrics[i].bandwidth > bestBandwidth$}
-\State $\textit bestBandwidth \gets nodeMetrics[i].bandwidth[i]$
-\State $\textit bestBandwidthNode \gets nodeMetrics[i].name$
+\If {$\textit nodeMetrics[i].bwidth > bestBwidth$}
+\State $\textit bestBwidth \gets nodeMetrics[i].bwidth[i]$
+\State $\textit bestBwidthN \gets nodeMetrics[i].name$
 \EndIf
 \If {$\textit nodeMetrics[i].diskIO < bestDiskIO$}
 \State $\textit bestDiskIO \gets nodeMetrics[i].diskIO[i]$
-\State $\textit bestDiskIONode \gets nodeMetrics[i].name$
+\State $\textit bestDiskION \gets nodeMetrics[i].name$
 \EndIf
 \EndFor
 \BState
-\State $\textit nodePriorities[bestCpuNode]+=3$
-\State $\textit nodePriorities[bestMemoryNode]+=2$
-\State $\textit nodePriorities[bestRecPacketsNode]+=1$
-\State $\textit nodePriorities[bestSentPacketsNode]+=1$
-\State $\textit nodePriorities[bestBandwidthNode]+=2$
-\State $\textit nodePriorities[bestDiskIONode]+=1$
+\State $\textit nodePriorities[bestCpuN]+=3$
+\State $\textit nodePriorities[bestMemN]+=2$
+\State $\textit nodePriorities[bestRecPckN]+=1$
+\State $\textit nodePriorities[bestSentPckN]+=1$
+\State $\textit nodePriorities[bestBwithN]+=2$
+\State $\textit nodePriorities[bestDiskION]+=1$
 \BState
 \State \textbf{return} $nodePriorities$
 \EndFunction
 \end{algorithmic}
+
 \end{algorithm}
 \end{document}
