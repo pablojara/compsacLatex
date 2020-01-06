@@ -367,8 +367,10 @@ Figures 7 and 8 show the total execution time of the tests performed, which is e
 \section{Conclusions and future work}\label{sec:conc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Distributed systems spanning infrastructures at different levels (edge/fog/cloud) have gained popularity in the recent years, and an appropriate scheduling technique is needed in order to provide QoS to the running applications. 
-
+Distributed systems spanning infrastructures at different levels (edge/fog/cloud) have gained popularity in the recent years, and an appropriate scheduling technique is needed in order to provide QoS to the running applications. After the performance evaluation of the previous chapter, it is concluded that the algorithm developed is an improvement over the algorithm implemented by Kubernetes in the case 
+of an existing congestion of the network on which the cluster is deployed. It is able to detect such congestion and act accordingly, assigning pods to nodes with less network congestion. As for the planning based on the rest of the parameters, the plannning algorithm does not behave more effectively than the algorithm that implements by default Kubernetes, since this also takes into account the use of the resources existing in each node by the time of planification. This algorithm is very effective and is the one used in most of the existing Kubernetes deployments in production. The algorithm developed also adds extra time in the calculation of the node during the planning process, due to requests made to the Prometheus server and the parsing of the metric files exported by the iperf tool. The fact that during the execution of the planning algorithm the iperf tool is being executed continuously implies a further process in each node, with the consequent consumption of resources, which may not be desirable in a production cluster. Similarly, the performance of the planning algorithm developed can be improved since the allocation time per pod is longer than that offered by the default Kubernetes 
+algorithm and this aspect is not admissible in an algorithm deployed in production. In any case, the algorithm developed presents the expected behavior, being effective in detecting anomalous conditions in 
+the nodes that make up the cluster and acting accordingly. For all this, it is concluded that the planning algorithm developed is a proof of concept and a starting point for future work.
 
 
 %\begin{thebibliography}{00}
