@@ -238,7 +238,16 @@ In order to illustrate the proposed algorithm, a performance evaluation has been
 
 \textbf{Detalles: Poner foto del cluster de raspberrys, incluir referencias bien puestas con bibtex (en el fichero BIBLIOGRAFIA.bib), pantallazos del prometheus, graficas de resultados}
 
-For the testing environment, four Raspberry Pi 3 Model B and one AMD64 Intel Core i7 architecture computer have been used. They have been connected using a five ports ethernet switch. A Kubernetes cluster has been deployed over this hardware infrestructure configuring the AMD computer as the master node and
+For the testing environment, four Raspberry Pi 3 Model B and one AMD64 Intel Core i7 architecture computer have been used. They have been connected using a five ports ethernet switch as shown in figure 2. 
+
+\begin{figure}[h]
+\begin{center}
+\strut\psfig{figure=Imagenes/cluster.eps,width=.5\textwidth}
+\caption{Raspberry Pi Cluster built}\label{fig:cluster}
+\end{center}
+\end{figure}
+
+A Kubernetes cluster has been deployed over this hardware infrestructure configuring the AMD computer as the master node and
 the Raspberries as worker nodes, and tainting the master node to avoid the execution of pods on it. Prometheus Operator[10] 
 has also been installed in the cluster, so we are able to monitor the cluster resources usage, CPU and memory occupation, pods distribution and network metrics.
 iPerf tool [12] which allows network monitoring between two or more nodes has also been installed and configured in the cluster, to collect information and metrics
@@ -247,14 +256,112 @@ container scheduling algorithm which will select the best node for a certain pod
 
 
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiments and results}\label{sec:expe}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+For the performance evaluation, the official benchmarking tools of the Kubernetes project have been used. This tool kit include different test suites in order to evaluate the performance and reliability
+of the cluster. For the performance of the Raspberry cluster and the planification algorithm the suite clusterloader2 [] has been used. This suite creates a variable number of deployments, composed by
+a variable number of pods, which contain a Docker container with a Debian image inside. Each container starts running and executes the command pause indefinitely. This suite is especially suitable for
+the performance evaluation of the project since it applies a considerable workload on the cluster and the developed scheduler will be in charge of assigning the pods to the most suitable nodes
+based on the parameters exported by Prometheus and iperf deployment.
+
+The clusterloader2 suite, after creating all the deployments specified in its configuration, waits for all the containers to be in the Running state and then begins to eliminate the deployments.
+Throughout this process, it measures the response times of the API, the use of resources by the cluster, the latency times of the pods and the API responsiveness. Thanks to this data,
+the behavior of the cluster with the developed scheduler can be analyzed.
+Three different tests have been performed with each of the planning algorithms, varying in each one the total number of pods deployed in the cluster. For the first test, ninety pods have been configured to be planned by the algorithm, for the second one, one hundred ten and for the third one hundred and thirty.
 
 
-Performance is really important for an scheduling algorithm.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{API responsiveness}\label{sec:apiresp}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The API responsivity measures the latencies between the execution of an operation on the Kubernetes API server and the resolution of the response. It is an indicator to take into account during the 
+performance evaluation since the API server works together between the master node and the slave nodes to evaluate and resolve the requests, so the response times offer a good approximation to know the 
+performance of the cluster during the execution of the suite.
 
+\begin{figure}[h]
+\begin{center}
+\strut\psfig{figure=Imagenes/apiresp1.eps,width=.5\textwidth}
+\caption{API responsivness, 90 pods}\label{fig:cluster}
+\end{center}
+\end{figure}
+
+Figures 3 show the average response times in milliseconds for each of the operations available on etcd during the executions with both algorithms and 90 pods. The results with bigger deployments are similar so they are not shown on this short paper. They are divided between the operations of creation, deletion, obtaining, listing, listing with counting and updating. As can be seen, the most demanding operations for the cluster are those of creation and get, due to the high number of pods housed in the cluster at the same time. It can also be seen that these are quite high response times, this is due to the nature of the cluster, being composed of low-cost computers such as Raspberry Pi, its resources are limited. They do not have high speed storage and the CPU has limitations when executing all the requests that the suite requires. This data allows to know the limitations of the cluster when analyzing possible applications of this in other areas. If the response times of both algorithms are compared, the similarity between the data obtained can be seen. This indicates that the developed scheduler has come into operation and has made an assignment of the nodes in a manner similar to that made by the original scheduler, without overloading any node, so the data collected is very similar to each other.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Scheduler latencies}\label{sec:schedlat}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The executed suite also offers the latency data between the state transitions of each pod, that is, the time that passes from being in one state to the next. For this evaluation, the latency between the Pending and Scheduled states has been taken into account.
+
+\begin{figure}[h]
+\begin{center}
+\strut\psfig{figure=Imagenes/schedlat.eps,width=.5\textwidth}
+\caption{Schedule time per pod}\label{fig:cluster}
+\end{center}
+\end{figure}
+
+Figure 4 shows how the original Kubernetes planning algorithm is faster in pod assignment than the developed algorithm. This measurement is the same in all three executions. This has been foreseen from 
+the beginning and it is because the algorithm developed is not optimized for use in production. The project scheduler makes several requests to Prometheus node exporters and has to load and parse the JSON 
+file with the information about the bandwidth at each execution, that is to say every time a pod is assigned. The original scheduler obtains the CPU and memory metrics directly from the kubelet component, 
+which is deployed on each node. This supposes a greater latency for the developed scheduler and although it has been developed in the Golang language, which offers greater performance than Python, it is an 
+important point of improvement.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Network Congestion Evaluation}\label{sec:netcongest}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To test the efficiency of the algorithm in the detection and selection of nodes in the event of a network congestion, a high demand for network resources has been simulated in three of the worker nodes, 
+limiting their available bandwidth to a minimum by means of use of the netem tool [26], belonging to the Linux Foundation [27]. Once configured, the clusterloader2 suite has been re-executed with both 
+algorithms, obtaining the following results. Figures 5 and 6 show the CPU usage time of each of the cores of the node processors. Each line represents the usage time of each processor core of the worker 
+nodes.
+
+\begin{figure}[t]
+\begin{center}
+\strut\psfig{figure=Imagenes/netcong1.eps,width=.5\textwidth}
+\caption{CPU active time, original scheduler}\label{fig:cluster}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\strut\psfig{figure=Imagenes/netcong2.eps,width=.5\textwidth}
+\caption{CPU active time, Network Aware Scheduler}\label{fig:cluster}
+\end{center}
+\end{figure}
+
+At the top, the execution with the original Kubernetes algorithm shows a similar use of the CPU of each node, indicating that the pods have been assigned in the usual way, without taking into account that there is a network congestion. 
+In Figure 6 the CPU usage timelines that have increased belong to the unmodified worker node. The algorithm developed, thanks to the constant monitoring of the network implemented with netperf, has 
+been able to detect the low bandwidth available by the three modified worker nodes and has assigned the majority of the workload to the remaining worker node. In this way it is proved that the developed 
+planning algorithm is able to adapt to unfavorable situations of the network and act accordingly.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Sending data through an unfavorable network}\label{sec:unfavnet}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The last test carried out to evaluate the favorable use cases for the developed scheduler has consisted of sending data through a network in an unfavorable situation, similar to the previous case, but in 
+this case the clusterloader2 suite has not been executed, but a benchmark developed specifically for work. Three of the worker nodes have been modified by limiting their bandwidth to a minimum, leaving 
+only one worker node in normal state. The benchmark developed has consisted of configuring a deployment of a variable number of containers with the image of iperf and programming each of them to perform a 
+network test consisting of sending data. When creating the cluster deployment, the pods are assigned to the node that the running planning algorithm orders. Two tests have been carried out, the first with 
+five containers and the second with ten containers, each sending 100 megabytes. Both tests have been performed on both algorithms. The results are presented below.
+
+\begin{figure}[h]
+\begin{center}
+\strut\psfig{figure=Imagenes/unfavnet1.eps,width=.5\textwidth}
+\caption{Test execution duration. 500MB}\label{fig:cluster}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\strut\psfig{figure=Imagenes/unfavnet2.eps,width=.5\textwidth}
+\caption{Test execution duration. 1GB}\label{fig:cluster}
+\end{center}
+\end{figure}
+
+Figures 7 and 8 show the total execution time of the tests performed, which is equal to the allocation time of the scheduler added to the total delivery time of all scheduled pods, ending when the last container ends Sending data The total test time with the work algorithm, including the planning time, is affected by the allocation latency of the developed scheduler. Despite this latency, the developed scheduler has a clear advantage over the original scheduler, which is not able to detect unfavorable network situations. In the case of such a scenario, the original scheduler assigns the pods without taking into account the state of the network, which has a significant influence on the total sending time.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions and future work}\label{sec:conc}

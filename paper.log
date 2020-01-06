@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=latex 2020.1.4)  4 JAN 2020 15:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=latex 2020.1.4)  6 JAN 2020 16:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -449,7 +449,26 @@ Document Style - pseudocode environments for use with the `algorithmicx' style
 \whilewidth=\skip50
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 20.
- (./paper.aux)
+ (./paper.aux
+
+LaTeX Warning: Label `fig:cluster' multiply defined.
+
+
+LaTeX Warning: Label `fig:cluster' multiply defined.
+
+
+LaTeX Warning: Label `fig:cluster' multiply defined.
+
+
+LaTeX Warning: Label `fig:cluster' multiply defined.
+
+
+LaTeX Warning: Label `fig:cluster' multiply defined.
+
+
+LaTeX Warning: Label `fig:cluster' multiply defined.
+
+)
 \openout1 = `paper.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
@@ -533,7 +552,62 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 173.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [3] (./paper.bbl)
+)
+File: Imagenes/cluster.eps Graphic file (type eps)
+
+<Imagenes/cluster.eps>
+Overfull \hbox (6.0pt too wide) in paragraph at lines 245--246
+ |[] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[3]
+File: Imagenes/apiresp1.eps Graphic file (type eps)
+ <Imagenes/apiresp1.eps>
+Overfull \hbox (6.0pt too wide) in paragraph at lines 286--287
+ |[] 
+ []
+
+[4]
+File: Imagenes/schedlat.eps Graphic file (type eps)
+ <Imagenes/schedlat.eps>
+Overfull \hbox (6.0pt too wide) in paragraph at lines 301--302
+ |[] 
+ []
+
+File: Imagenes/netcong1.eps Graphic file (type eps)
+<Imagenes/netcong1.eps>
+Overfull \hbox (6.0pt too wide) in paragraph at lines 323--324
+ |[] 
+ []
+
+File: Imagenes/netcong2.eps Graphic file (type eps)
+<Imagenes/netcong2.eps>
+Overfull \hbox (6.0pt too wide) in paragraph at lines 330--331
+ |[] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+File: Imagenes/unfavnet1.eps Graphic file (type eps)
+<Imagenes/unfavnet1.eps>
+Overfull \hbox (6.0pt too wide) in paragraph at lines 352--353
+ |[] 
+ []
+
+File: Imagenes/unfavnet2.eps Graphic file (type eps)
+<Imagenes/unfavnet2.eps>
+Overfull \hbox (6.0pt too wide) in paragraph at lines 359--360
+ |[] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5] (./paper.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -545,16 +619,20 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[4
+[6
 
-] (./paper.aux) ) 
+] (./paper.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4385 strings out of 492616
- 61189 string characters out of 6131417
+ 4411 strings out of 492616
+ 61731 string characters out of 6131417
  135158 words of memory out of 5000000
- 8253 multiletter control sequences out of 15000+600000
+ 8272 multiletter control sequences out of 15000+600000
  98105 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,8n,35p,1332b,292s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,8n,35p,1332b,294s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on paper.dvi (4 pages, 29936 bytes).
+Output written on paper.dvi (6 pages, 42068 bytes).
