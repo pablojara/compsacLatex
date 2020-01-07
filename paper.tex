@@ -74,7 +74,7 @@ During the last years, distributed heterogeneous computing resources have arisen
 
 The last term to be coined is \emph{fog computing}, which refers to computing resources that are between the edge and cloud in the network hierarchy, with compute, storage and memory capacities that fall between these layers as well~\cite{Simmhan19}. These edge and fog resources provide the opportunity for low latency processing of the generated data, closer to its source, and on the wide-area network~\cite{Stojmenovic2014}. As a result, there is critical need to understand how this diverse ecosystem of edge, fog and cloud resources can be effectively used by large-scale distributed applications~\cite{Varshney2019}. This multilevel scenario can be seen in Figure~\ref{fig:edgefogcloud}~\cite{BittencourtMBRP17}, where the term \emph{cloudlets}  refers to the access points devices extended with computing and storage services to create the fog system.
  
-In such multilevel environment, the network plays an essential role since it is the communication medium between all the actors in the system and its poor performance affects the whole system. Thus, the network should be taken into account when making all kinds of decisions in order to provide Quality of Service (QoS), one of the main ones is scheduling. The term \emph{scheduling} refers to the process of allocating computing resources to an application and mapping constituent components of that application onto those resources, in order to meet certain QoS and resource conservation goals~\cite{Pinedo08}. % The term \emph{application} can be seen as an abstract entity created using different primitives such as processes, threads, or workflows, among others~\cite{Tucker89, Taylor07}. In the same way, a \emph{computing resource} can be very diverse, including among others bare metal server, a cluster of physical or virtual servers locally or in the cloud, edge or mobile devices in an IoT deployment~\cite{LiuYDA19, Zhan2015}. Regarding \emph{QoS}, it can be latency, packet loss, throughput, among many other metrics, and \emph{conservation goals} can be among others the energy footprint of the system. So, scheduling applications requires understanding these terms and the way how they coexist. 
+In such multilevel environment, the network plays an essential role since it is the communication medium between all the actors in the system and its poor performance affects the whole system. Thus, the network should be taken into account when making all kinds of decisions in order to provide Quality of Service (QoS), one of the main ones is scheduling. The term \emph{scheduling} refers to the process of allocating computing resources to an application and mapping constituent components of that application onto those resources, in order to meet certain QoS and resource conservation goals~\cite{Pinedo08}. % The term \emph{application} can be seen as an abstract entity created using different primitives such as processes, threads, or workflows, among others~\cite{Tucker89, Taylor07}. In the same way, a \emph{computing resource} can be very diverse, including among others bare metal server, a cluster of physical or virtual servers locally or in the cloud, edge or mobile devices in an IoT deployment~\cite{LiuYDA19, Zhan2015}. Regarding \emph{QoS}, it can be latency, packet loss, throughput, among many other metrics, and \emph{conservation goals} can be among others the energy footprint of the system. So, scheduling applications requires understanding these terms and the way how they coexist.
 
 \begin{figure}[t!]
 \begin{center}
@@ -103,9 +103,9 @@ This paper is organized as follows. Section~\ref{sec:rel} presents the related w
 The growth of the use of light virtualization technologies or containers is evident in the vast majority of areas where previously the hardware virtualization was used. Most of the times, the deployment of an application is done in a distributed computing environment, in the cloud or in a local cluster. When deploying applications in distributed environments a container orchestration tool like Kubernetes is needed. Kubernetes manages the deployment of the application introducing the \emph{pod} concept which is the basic deployment unit in the system. A pod is capable of running one or more containers and every pod has to be deployed in 
 a selected node of the distributed computing environment which will be selected by Kubernetes based on the resources required by the node to run smoothly and
 in some affinities and taints which has to be configured depending on the type of deployment. Studies have been conducted that address the effects of the deployment 
-configuration in the performance and robustness of the application. In [5] a performance model of Kubernetes application is obtained with the application of benchmarks.
+configuration in the performance and robustness of the application. In ~\cite{Rana16} a performance model of Kubernetes application is obtained with the application of benchmarks.
 It defends that for applications with more than eight containers, the bandwidth and final throughput is higher if every container is deployed in a separate pod. This suggest
-that deploying more pods with fewer containers in each pod, is better in terms of performance and bandwidth availability. In [6], from the same authors, the 
+that deploying more pods with fewer containers in each pod, is better in terms of performance and bandwidth availability. In ~\cite{Orana18}, from the same authors, the 
 effects of the type of deployment explained above are studied and detailed depending on the nature of the application and its services. The paper makes a
 distinction between high CPU and I/O demanding services and high bandwidth demand. At the same time, it makes a distinction between service container,
 that are executing full time, and job containers, which are created and destroyed with each execution. 
@@ -136,8 +136,8 @@ the just created pods to a cluster node. It is a process executing with the rest
 in the master node. When a new pod is created, an event is created ant the Kubernetes scheduler is 
 triggered to start the assignation of the pod. It has three main execution phases: filtering,
 node ranking and node selection. During the filtering phase, the scheduler discards the nodes
-that are not suitable to run the pod due to restrictions and taints. During the second phase, 
-the scheduler populates a list containing all the suitable nodes for the pod execution, applying
+that are not suitable to run the pod due to restrictions and taints, that are applicable to each pod and node.
+During the second phase, the scheduler populates a list containing all the suitable nodes for the pod execution, applying
 a collection of priority functions to every node, trying to divide the pods among all the
 available nodes and giving more importance to the ones with less workload. During the last execution
 phase, the node with higher priority is selected, and in case of existing more than one, it a random 
@@ -170,32 +170,30 @@ The pseudocode for this logic can be seen in the figure below.
 \caption{Network Aware Scheduler}\label{Kubernetes}
 \begin{algorithmic}[1]
 \Function{calculatePriorities}{}
-\State Let $nodeMetrics[i].cpu$ be
-\State Let $bestRecPackets$ be
 
-\For{\textit{int i = 0; i < 4; i++}}
+\For{\textit{int i = 0; i < numNodes; i++}}
 \If {$\textit nodeMetrics[i].cpu < bestCpu$}
-\State $\textit bestCpu \gets nodeMetrics[i].cpu[i]$
+\State $\textit bestCpu \gets nodeMetrics[i].cpu$
 \State $\textit bestCpuN \gets nodeMetrics[i].name$
 \EndIf
 \If {$\textit nodeMetrics[i].mem < bestMem$}
-\State $\textit bestMem \gets nodeMetrics[i].mem[i]$
+\State $\textit bestMem \gets nodeMetrics[i].mem$
 \State $\textit bestMemN \gets nodeMetrics[i].name$
 \EndIf
 \If {$\textit nodeMetrics[i].recPck < bestRecPck$}
-\State $\textit bestRecPck \gets nodeMetrics[i].recPck[i]$
+\State $\textit bestRecPck \gets nodeMetrics[i].recPck$
 \State $\textit bestRecPckN \gets nodeMetrics[i].name$
 \EndIf
 \If {$\textit nodeMetrics[i].sentPck < bestSentPck$}
-\State $\textit bestSentPck \gets nodeMetrics[i].sentPck[i]$
+\State $\textit bestSentPck \gets nodeMetrics[i].sentPck$
 \State $\textit bestSentPckN \gets nodeMetrics[i].name$
 \EndIf
 \If {$\textit nodeMetrics[i].bwidth > bestBwidth$}
-\State $\textit bestBwidth \gets nodeMetrics[i].bwidth[i]$
+\State $\textit bestBwidth \gets nodeMetrics[i].bwidth$
 \State $\textit bestBwidthN \gets nodeMetrics[i].name$
 \EndIf
 \If {$\textit nodeMetrics[i].diskIO < bestDiskIO$}
-\State $\textit bestDiskIO \gets nodeMetrics[i].diskIO[i]$
+\State $\textit bestDiskIO \gets nodeMetrics[i].diskIO$
 \State $\textit bestDiskION \gets nodeMetrics[i].name$
 \EndIf
 \EndFor
@@ -221,7 +219,7 @@ metric for each category is stored in bestCpuN , bestMemN, bestRecPckN, bestSent
 the nodes, returning an array with the nodes ordered by priority of scheduling.
 
 The scheduler code is compiled and packaged in a container and deployed in a pod, and has to be allowed with a role based access account to schedule
-and allocate new pods.
+and allocate new pods. The docker image is available in DockerHub~\cite{dockerhub}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -235,9 +233,6 @@ In order to illustrate the proposed algorithm, a performance evaluation has been
 \subsection{Work Environment Preparation}\label{sec:env}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-\textbf{Detalles: Poner foto del cluster de raspberrys, incluir referencias bien puestas con bibtex (en el fichero BIBLIOGRAFIA.bib), pantallazos del prometheus, graficas de resultados}
-
 For the testing environment, four Raspberry Pi 3 Model B and one AMD64 Intel Core i7 architecture computer have been used. They have been connected using a five ports ethernet switch as shown in figure 2. 
 
 \begin{figure}[h]
@@ -248,12 +243,20 @@ For the testing environment, four Raspberry Pi 3 Model B and one AMD64 Intel Cor
 \end{figure}
 
 A Kubernetes cluster has been deployed over this hardware infrestructure configuring the AMD computer as the master node and
-the Raspberries as worker nodes, and tainting the master node to avoid the execution of pods on it. Prometheus Operator[10] 
+the Raspberries as worker nodes, and tainting the master node to avoid the execution of pods on it. Prometheus~\cite{prometheus}
 has also been installed in the cluster, so we are able to monitor the cluster resources usage, CPU and memory occupation, pods distribution and network metrics.
-iPerf tool [12] which allows network monitoring between two or more nodes has also been installed and configured in the cluster, to collect information and metrics
+
+\begin{figure}[h]
+\begin{center}
+\strut\psfig{figure=Imagenes/deploy.eps,width=.5\textwidth}
+\caption{Cluster hardware and software distribution}\label{fig:cluster}
+\end{center}
+\end{figure}
+
+
+iPerf tool~\cite{iperf} which allows network monitoring between two or more nodes has also been installed and configured in the cluster, to collect information and metrics
 about the available bandwidth between each node, packet loss and delay. With this two monitoring tools we are able to know the state of the cluster and feed the
 container scheduling algorithm which will select the best node for a certain pod taking all this data in account.
-
 
 
 
@@ -263,10 +266,7 @@ container scheduling algorithm which will select the best node for a certain pod
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 For the performance evaluation, the official benchmarking tools of the Kubernetes project have been used. This tool kit include different test suites in order to evaluate the performance and reliability
-of the cluster. For the performance of the Raspberry cluster and the planification algorithm the suite clusterloader2 [] has been used. This suite creates a variable number of deployments, composed by
-a variable number of pods, which contain a Docker container with a Debian image inside. Each container starts running and executes the command pause indefinitely. This suite is especially suitable for
-the performance evaluation of the project since it applies a considerable workload on the cluster and the developed scheduler will be in charge of assigning the pods to the most suitable nodes
-based on the parameters exported by Prometheus and iperf deployment.
+of the cluster. For the performance of the Raspberry cluster and the planification algorithm the suite clusterloader2~\cite{clusterloader2}  has been used. This suite creates a variable number of deployments, composed by a variable number of pods, which contain a Docker container with a Debian image inside. Each container starts running and executes the command pause indefinitely. This suite is especially suitable for the performance evaluation of the project since it applies a considerable workload on the cluster and the developed scheduler will be in charge of assigning the pods to the most suitable nodes based on the parameters exported by Prometheus and iperf deployment.
 
 The clusterloader2 suite, after creating all the deployments specified in its configuration, waits for all the containers to be in the Running state and then begins to eliminate the deployments.
 Throughout this process, it measures the response times of the API, the use of resources by the cluster, the latency times of the pods and the API responsiveness. Thanks to this data,
@@ -314,14 +314,14 @@ important point of improvement.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 To test the efficiency of the algorithm in the detection and selection of nodes in the event of a network congestion, a high demand for network resources has been simulated in three of the worker nodes, 
-limiting their available bandwidth to a minimum by means of use of the netem tool [26], belonging to the Linux Foundation [27]. Once configured, the clusterloader2 suite has been re-executed with both 
+limiting their available bandwidth to a minimum by means of use of the netem tool ~\cite{netem}, belonging to the Linux Foundation. Once configured, the clusterloader2 suite has been re-executed with both 
 algorithms, obtaining the following results. Figures 5 and 6 show the CPU usage time of each of the cores of the node processors. Each line represents the usage time of each processor core of the worker 
 nodes.
 
 \begin{figure}[t]
 \begin{center}
 \strut\psfig{figure=Imagenes/netcong1.eps,width=.5\textwidth}
-\caption{CPU active time, original scheduler}\label{fig:cluster}
+\caption{CPU active time, Original Scheduler}\label{fig:cluster}
 \end{center}
 \end{figure}
 
