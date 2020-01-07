@@ -77,9 +77,9 @@ H.~Hong, P.~Tsai, and C.~Hsu, ``Dynamic module deployment in a fog computing
   Management Symposium (APNOMS)}, Kanazawa, Japan, 2016.
 
 \bibitem{Rana16}
-U.~A. O.~R. V.~Medel, J.~Bañares, ``Modelling performance and resource
-  management in kubernetes,'' \emph{IEEE Computer/ACM Internation Conference on
-  Utility and Cloud Computing}, p. 257–262, 2016.
+V.~Medel, J.~Bañares, U.~Arronategui, and O.~Rana, ``Modelling performance and
+  resource management in kubernetes,'' \emph{IEEE Computer/ACM Internation
+  Conference on Utility and Cloud Computing}, p. 257–262, 2016.
 
 \bibitem{Orana18}
 ------, ``Characterising resource management performance in kubernetes,''
@@ -87,33 +87,27 @@ U.~A. O.~R. V.~Medel, J.~Bañares, ``Modelling performance and resource
   Computing}, pp. 20--23, 2018.
 
 \bibitem{dockerhub}
-\BIBentryALTinterwordspacing
-D.~Inc. (2020) Docker hub network aware scheduler. [Online]. Available:
-  \url{https://hub.docker.com/r/pablojara/network_aware_scheduler}
-\BIBentrySTDinterwordspacing
+``Network-aware scheduler docker image available at docker hub,'' Web page at
+  \url{https://hub.docker.com/r/pablojara/network\_aware\_scheduler}, Date of
+  last access: \today.
 
 \bibitem{prometheus}
-\BIBentryALTinterwordspacing
-P.~Authors. (2020) Prometheus: Monitoring system and time series database.
-  [Online]. Available: \url{https://prometheus.io/docs/introduction/overview/}
-\BIBentrySTDinterwordspacing
+``Prometheus: Monitoring system and time series database,'' Web page at
+  \url{https://prometheus.io/docs/introduction/overview/}, Date of last access:
+  \today.
 
 \bibitem{iperf}
-\BIBentryALTinterwordspacing
-I.~Authors. (2020) iperf - the tcp, udp and sctp network bandwidth tool.
-  [Online]. Available: \url{https://prometheus.io/docs/introduction/overview/}
-\BIBentrySTDinterwordspacing
+``iperf - the tcp, udp and sctp network bandwidth tool,'' Web page at
+  \url{https://prometheus.io/docs/introduction/overview/}, Date of last access:
+  \today.
 
 \bibitem{clusterloader2}
-\BIBentryALTinterwordspacing
-K.~Project. (2020) Cluster loader performance test. [Online]. Available:
-  \url{https://github.com/kubernetes/perf-tests/tree/master/clusterloader2/}
-\BIBentrySTDinterwordspacing
+``Kubernetes: Cluster loader performance test,'' Web page at
+  \url{https://github.com/kubernetes/perf-tests/tree/master/clusterloader2/},
+  Date of last access: \today.
 
 \bibitem{netem}
-\BIBentryALTinterwordspacing
-L.~Foundation. (2020) networking:netem [linux foundation wiki]. [Online].
-  Available: \url{https://wiki.linuxfoundation.org/networking/netem}
-\BIBentrySTDinterwordspacing
+``netem,'' Web page at \url{https://wiki.linuxfoundation.org/networking/netem},
+  Date of last access: \today.
 
 \end{thebibliography}
