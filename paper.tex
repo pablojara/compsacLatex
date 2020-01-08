@@ -147,19 +147,8 @@ performance is a key part of the system, and in some cases it become the bottlen
 For this work, the developed algorithm will only implement the last two phases of the original
 scheduling algorithm, avoiding the filtering phase as it is out of scope in the work.
 
-The scheduler that has been developed makes use of the metrics that Prometheus exports on each node through the node exporters.
-This means that requests to know the status of each node will be made to each of the node exporters since it is desired to know
-the status at that same moment. If they were made to the Prometheus Server, to obtain the measurements you would have to make the 
-requests to the exporter node, so they will be made directly from the scheduler saving an extra jump when passing through the server.
-These metrics obtained from each export node are used to calculate the priority of the candidate nodes to be assigned to the pod
-in planning. During the planning process, five metrics exported by Prometheus are taken into account: current frequency of each core
-of the node's CPU, percentage of memory occupied, read and write operations on disk and the number of packets sent and received by the
-user interface. network in use. The ideal node for the assignment with the pod is the one that uses the least amount of all these
-resources at the time of selection. After this, the iPerf metrics are collected and stored into the scheduler container, to feed
-the scheduling algoruthm among the Prometheus metrics.
-
-
-For the node ranking the scheduling algorithm will compare each node metrics, giving, for every metric, a pondered score to the node
+The scheduler that has been developed makes use of six metrics, cpu usage, memory occupation, number of sent and received network packets,
+maximun available bandwidth and disk input and ouput. For the node ranking the scheduling algorithm will compare each node metrics, giving, for every metric, a pondered score to the node
 with best metrics. Each metric score has a different value, being CPU, memory and bandwidth the ones with highest weight.
 The priority computation function implements this logic, and is executed for every new pod in the cluster.
 The pseudocode for this logic can be seen in the figure below.
@@ -212,7 +201,7 @@ The pseudocode for this logic can be seen in the figure below.
 \end{algorithm}
 
 
-The algorithm makes use of the metrics exported by Prometheus and iperf, being nodeMetrics an array with the metrics for each node, cpu, mem, sentPck, recPck, bwidth and diskIO
+The algorithm makes use of the mentioned metrics, being nodeMetrics an array with the metrics for each node, cpu, mem, sentPck, recPck, bwidth and diskIO
 the metrics taken into account for each node in the priority computation function. For every node, each metric is compared with the same metric for the rest of the nodes, and the
 best metric is choosen (in the case of cpu, memory, packets sent and received and disk usage metrics, less is better and for bandwith metric more is better). The node with the best
 metric for each category is stored in bestCpuN , bestMemN, bestRecPckN, bestSentPckN, bestBwidthN and bestDiskION, so, at the end of the computation, scores are asigned to each of
@@ -266,7 +255,16 @@ container scheduling algorithm which will select the best node for a certain pod
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 For the performance evaluation, the official benchmarking tools of the Kubernetes project have been used. This tool kit include different test suites in order to evaluate the performance and reliability
-of the cluster. For the performance of the Raspberry cluster and the planification algorithm the suite clusterloader2~\cite{clusterloader2}  has been used. This suite creates a variable number of deployments, composed by a variable number of pods, which contain a Docker container with a Debian image inside. Each container starts running and executes the command pause indefinitely. This suite is especially suitable for the performance evaluation of the project since it applies a considerable workload on the cluster and the developed scheduler will be in charge of assigning the pods to the most suitable nodes based on the parameters exported by Prometheus and iperf deployment.
+of the cluster. For the performance of the Raspberry cluster and the planification algorithm the suite clusterloader2~\cite{clusterloader2}  has been used. This suite creates a variable number of deployments, composed of a single pod, which contain a Docker container with a Kubernetes custom image inside. Deployment configuration file can be seen in figure 4.
+
+\begin{figure}[h]
+\begin{center}
+\strut\psfig{figure=Imagenes/deploymentyaml.eps,width=.5\textwidth}
+\caption{Pod configuration for clusterloader2 suite}\label{fig:cluster}
+\end{center}
+\end{figure}
+
+Each container starts running and executes the command pause indefinitely. This suite is especially suitable for the performance evaluation of the project since it applies a considerable workload on the cluster and the developed scheduler will be in charge of assigning the pods to the most suitable nodes based on the parameters exported by Prometheus and iperf deployment.
 
 The clusterloader2 suite, after creating all the deployments specified in its configuration, waits for all the containers to be in the Running state and then begins to eliminate the deployments.
 Throughout this process, it measures the response times of the API, the use of resources by the cluster, the latency times of the pods and the API responsiveness. Thanks to this data,
@@ -288,7 +286,7 @@ performance of the cluster during the execution of the suite.
 \end{center}
 \end{figure}
 
-Figures 3 show the average response times in milliseconds for each of the operations available on etcd during the executions with both algorithms and 90 pods. The results with bigger deployments are similar so they are not shown on this short paper. They are divided between the operations of creation, deletion, obtaining, listing, listing with counting and updating. As can be seen, the most demanding operations for the cluster are those of creation and get, due to the high number of pods housed in the cluster at the same time. It can also be seen that these are quite high response times, this is due to the nature of the cluster, being composed of low-cost computers such as Raspberry Pi, its resources are limited. They do not have high speed storage and the CPU has limitations when executing all the requests that the suite requires. This data allows to know the limitations of the cluster when analyzing possible applications of this in other areas. If the response times of both algorithms are compared, the similarity between the data obtained can be seen. This indicates that the developed scheduler has come into operation and has made an assignment of the nodes in a manner similar to that made by the original scheduler, without overloading any node, so the data collected is very similar to each other.
+Figure 5 show the average response times in milliseconds for each of the operations available on etcd during the executions with both algorithms and 90 pods. The results with bigger deployments are similar so they are not shown on this short paper. They are divided between the operations of creation, deletion, obtaining, listing, listing with counting and updating. As can be seen, the most demanding operations for the cluster are those of creation and get, due to the high number of pods housed in the cluster at the same time. It can also be seen that these are quite high response times, this is due to the nature of the cluster, being composed of low-cost computers such as Raspberry Pi, its resources are limited. They do not have high speed storage and the CPU has limitations when executing all the requests that the suite requires. This data allows to know the limitations of the cluster when analyzing possible applications of this in other areas. If the response times of both algorithms are compared, the similarity between the data obtained can be seen. This indicates that the developed scheduler has come into operation and has made an assignment of the nodes in a manner similar to that made by the original scheduler, without overloading any node, so the data collected is very similar to each other.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -303,7 +301,7 @@ The executed suite also offers the latency data between the state transitions of
 \end{center}
 \end{figure}
 
-Figure 4 shows how the original Kubernetes planning algorithm is faster in pod assignment than the developed algorithm. This measurement is the same in all three executions. This has been foreseen from 
+Figure 6 shows how the original Kubernetes planning algorithm is faster in pod assignment than the developed algorithm. This measurement is the same in all three executions. This has been foreseen from 
 the beginning and it is because the algorithm developed is not optimized for use in production. The project scheduler makes several requests to Prometheus node exporters and has to load and parse the JSON 
 file with the information about the bandwidth at each execution, that is to say every time a pod is assigned. The original scheduler obtains the CPU and memory metrics directly from the kubelet component, 
 which is deployed on each node. This supposes a greater latency for the developed scheduler and although it has been developed in the Golang language, which offers greater performance than Python, it is an 
@@ -332,8 +330,16 @@ nodes.
 \end{center}
 \end{figure}
 
-At the top, the execution with the original Kubernetes algorithm shows a similar use of the CPU of each node, indicating that the pods have been assigned in the usual way, without taking into account that there is a network congestion. 
-In Figure 6 the CPU usage timelines that have increased belong to the unmodified worker node. The algorithm developed, thanks to the constant monitoring of the network implemented with netperf, has 
+At the top, the execution with the original Kubernetes algorithm shows a similar use of the CPU of each node, indicating that the pods have been assigned in the usual way, without taking into account that there is a network congestion. In Figure 8 the CPU usage timelines that have increased belong to the unmodified worker node. The following figure show the assignation made to each worker node by both algorithms.
+
+\begin{figure}[h]
+\begin{center}
+\strut\psfig{figure=Imagenes/distribution1.eps,width=.5\textwidth}
+\caption{Pods distribution by nodes in each execution}\label{fig:cluster}
+\end{center}
+\end{figure}
+
+As shown in figure 9, the algorithm developed, thanks to the constant monitoring of the network implemented with netperf, has 
 been able to detect the low bandwidth available by the three modified worker nodes and has assigned the majority of the workload to the remaining worker node. In this way it is proved that the developed 
 planning algorithm is able to adapt to unfavorable situations of the network and act accordingly.
 
@@ -349,6 +355,16 @@ five containers and the second with ten containers, each sending 100 megabytes. 
 
 \begin{figure}[h]
 \begin{center}
+\strut\psfig{figure=Imagenes/distribution2.eps,width=.5\textwidth}
+\caption{Pods distribution by nodes in each execution}\label{fig:cluster}
+\end{center}
+\end{figure}
+
+
+Figure 10 shows the distribution of the pods made by each planification algorithm in both executions. As can be seen, when an unfavorable situation in the network is detected in any node, the pods are not assigned it, preventing low performance and network problems in the application.
+
+\begin{figure}[h]
+\begin{center}
 \strut\psfig{figure=Imagenes/unfavnet1.eps,width=.5\textwidth}
 \caption{Test execution duration. 500MB}\label{fig:cluster}
 \end{center}
@@ -361,7 +377,7 @@ five containers and the second with ten containers, each sending 100 megabytes. 
 \end{center}
 \end{figure}
 
-Figures 7 and 8 show the total execution time of the tests performed, which is equal to the allocation time of the scheduler added to the total delivery time of all scheduled pods, ending when the last container ends Sending data The total test time with the work algorithm, including the planning time, is affected by the allocation latency of the developed scheduler. Despite this latency, the developed scheduler has a clear advantage over the original scheduler, which is not able to detect unfavorable network situations. In the case of such a scenario, the original scheduler assigns the pods without taking into account the state of the network, which has a significant influence on the total sending time.
+Figures 11 and 12 show the total execution time of the tests performed, which is equal to the allocation time of the scheduler added to the total delivery time of all scheduled pods, ending when the last container ends Sending data The total test time with the work algorithm, including the planning time, is affected by the allocation latency of the developed scheduler. Despite this latency, the developed scheduler has a clear advantage over the original scheduler, which is not able to detect unfavorable network situations. In the case of such a scenario, the original scheduler assigns the pods without taking into account the state of the network, which has a significant influence on the total sending time.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions and future work}\label{sec:conc}

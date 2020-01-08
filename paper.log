@@ -1,11 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2018.10.12)  7 JAN 2020 23:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=latex 2020.1.4)  8 JAN 2020 22:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **paper
 (./paper.tex
-LaTeX2e <2017-04-15>
-Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
+LaTeX2e <2018-12-01>
 (/usr/share/texlive/texmf-dist/tex/latex/IEEEtran/IEEEtran.cls
 Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 -- See the "IEEEtran_HOWTO" manual for usage information.
@@ -13,9 +12,9 @@ Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 \@IEEEtrantmpdimenA=\dimen102
 \@IEEEtrantmpdimenB=\dimen103
 \@IEEEtrantmpdimenC=\dimen104
-\@IEEEtrantmpcountA=\count79
-\@IEEEtrantmpcountB=\count80
-\@IEEEtrantmpcountC=\count81
+\@IEEEtrantmpcountA=\count80
+\@IEEEtrantmpcountB=\count81
+\@IEEEtrantmpcountC=\count82
 \@IEEEtrantmptoksA=\toks14
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 503.
 
@@ -91,28 +90,28 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
 \IEEEiednormlabelsep=\dimen118
 \IEEEiedmathlabelsep=\dimen119
 \IEEEiedtopsep=\skip41
-\c@section=\count82
-\c@subsection=\count83
-\c@subsubsection=\count84
-\c@paragraph=\count85
-\c@IEEEsubequation=\count86
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@IEEEsubequation=\count87
 \abovecaptionskip=\skip42
 \belowcaptionskip=\skip43
-\c@figure=\count87
-\c@table=\count88
-\@IEEEeqnnumcols=\count89
-\@IEEEeqncolcnt=\count90
-\@IEEEsubeqnnumrollback=\count91
+\c@figure=\count88
+\c@table=\count89
+\@IEEEeqnnumcols=\count90
+\@IEEEeqncolcnt=\count91
+\@IEEEsubeqnnumrollback=\count92
 \@IEEEquantizeheightA=\dimen120
 \@IEEEquantizeheightB=\dimen121
 \@IEEEquantizeheightC=\dimen122
 \@IEEEquantizeprevdepth=\dimen123
-\@IEEEquantizemultiple=\count92
-\@IEEEquantizeboxA=\box26
+\@IEEEquantizemultiple=\count93
+\@IEEEquantizeboxA=\box27
 \@IEEEtmpitemindent=\dimen124
 \IEEEPARstartletwidth=\dimen125
-\c@IEEEbiography=\count93
-\@IEEEtranrubishbin=\box27
+\c@IEEEbiography=\count94
+\@IEEEtranrubishbin=\box28
 )
 ** ATTENTION: Overriding command lockouts (line 2).
 (/usr/share/texlive/texmf-dist/tex/latex/cite/cite.sty
@@ -157,7 +156,7 @@ File: dvips.def 2017/06/20 v3.1d Graphics/color driver for dvips
 \epsfysize=\dimen129
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2017/09/02 v2.17a AMS math features
+Package: amsmath 2018/12/01 v2.17b AMS math features
 \@mathmargin=\skip44
 
 For additional information on amsmath, use the `?' option.
@@ -176,30 +175,30 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count94
-LaTeX Info: Redefining \frac on input line 213.
-\uproot@=\count95
-\leftroot@=\count96
-LaTeX Info: Redefining \overline on input line 375.
-\classnum@=\count97
-\DOTSCASE@=\count98
-LaTeX Info: Redefining \ldots on input line 472.
-LaTeX Info: Redefining \dots on input line 475.
-LaTeX Info: Redefining \cdots on input line 596.
-\Mathstrutbox@=\box28
-\strutbox@=\box29
+\inf@bad=\count95
+LaTeX Info: Redefining \frac on input line 223.
+\uproot@=\count96
+\leftroot@=\count97
+LaTeX Info: Redefining \overline on input line 385.
+\classnum@=\count98
+\DOTSCASE@=\count99
+LaTeX Info: Redefining \ldots on input line 482.
+LaTeX Info: Redefining \dots on input line 485.
+LaTeX Info: Redefining \cdots on input line 606.
+\Mathstrutbox@=\box29
+\strutbox@=\box30
 \big@size=\dimen132
-LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
-\macc@depth=\count99
-\c@MaxMatrixCols=\count100
+LaTeX Font Info:    Redeclaring font encoding OML on input line 729.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
+\macc@depth=\count100
+\c@MaxMatrixCols=\count101
 \dotsspace@=\muskip10
-\c@parentequation=\count101
-\dspbrk@lvl=\count102
+\c@parentequation=\count102
+\dspbrk@lvl=\count103
 \tag@help=\toks17
-\row@=\count103
-\column@=\count104
-\maxfields@=\count105
+\row@=\count104
+\column@=\count105
+\maxfields@=\count106
 \andhelp@=\toks18
 \eqnshift@=\dimen133
 \alignsep@=\dimen134
@@ -211,8 +210,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 \multlinegap=\skip45
 \multlinetaggap=\skip46
 \mathdisplay@stack=\toks20
-LaTeX Info: Redefining \[ on input line 2817.
-LaTeX Info: Redefining \] on input line 2818.
+LaTeX Info: Redefining \[ on input line 2844.
+LaTeX Info: Redefining \] on input line 2845.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
@@ -225,7 +224,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
-Package: textcomp 2017/04/05 v2.0i Standard LaTeX package
+Package: textcomp 2018/08/11 v2.0j Standard LaTeX package
 Package textcomp Info: Sub-encoding information:
 (textcomp)               5 = only ISO-Adobe without \textcurrency
 (textcomp)               4 = 5 + \texteuro
@@ -241,7 +240,82 @@ Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
-)
+Now handling font encoding TS1 ...
+... processing UTF-8 mapping file for font encoding TS1
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu
+File: ts1enc.dfu 2018/10/05 v1.2f UTF-8 support for inputenc
+   defining Unicode char U+00A2 (decimal 162)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00A4 (decimal 164)
+   defining Unicode char U+00A5 (decimal 165)
+   defining Unicode char U+00A6 (decimal 166)
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00A8 (decimal 168)
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AC (decimal 172)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00AF (decimal 175)
+   defining Unicode char U+00B0 (decimal 176)
+   defining Unicode char U+00B1 (decimal 177)
+   defining Unicode char U+00B2 (decimal 178)
+   defining Unicode char U+00B3 (decimal 179)
+   defining Unicode char U+00B4 (decimal 180)
+   defining Unicode char U+00B5 (decimal 181)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+00B9 (decimal 185)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+00BC (decimal 188)
+   defining Unicode char U+00BD (decimal 189)
+   defining Unicode char U+00BE (decimal 190)
+   defining Unicode char U+00D7 (decimal 215)
+   defining Unicode char U+00F7 (decimal 247)
+   defining Unicode char U+0192 (decimal 402)
+   defining Unicode char U+02C7 (decimal 711)
+   defining Unicode char U+02D8 (decimal 728)
+   defining Unicode char U+02DD (decimal 733)
+   defining Unicode char U+0E3F (decimal 3647)
+   defining Unicode char U+2016 (decimal 8214)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+203B (decimal 8251)
+   defining Unicode char U+203D (decimal 8253)
+   defining Unicode char U+2044 (decimal 8260)
+   defining Unicode char U+204E (decimal 8270)
+   defining Unicode char U+2052 (decimal 8274)
+   defining Unicode char U+20A1 (decimal 8353)
+   defining Unicode char U+20A4 (decimal 8356)
+   defining Unicode char U+20A6 (decimal 8358)
+   defining Unicode char U+20A9 (decimal 8361)
+   defining Unicode char U+20AB (decimal 8363)
+   defining Unicode char U+20AC (decimal 8364)
+   defining Unicode char U+20B1 (decimal 8369)
+   defining Unicode char U+2103 (decimal 8451)
+   defining Unicode char U+2116 (decimal 8470)
+   defining Unicode char U+2117 (decimal 8471)
+   defining Unicode char U+211E (decimal 8478)
+   defining Unicode char U+2120 (decimal 8480)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2126 (decimal 8486)
+   defining Unicode char U+2127 (decimal 8487)
+   defining Unicode char U+212E (decimal 8494)
+   defining Unicode char U+2190 (decimal 8592)
+   defining Unicode char U+2191 (decimal 8593)
+   defining Unicode char U+2192 (decimal 8594)
+   defining Unicode char U+2193 (decimal 8595)
+   defining Unicode char U+2329 (decimal 9001)
+   defining Unicode char U+232A (decimal 9002)
+   defining Unicode char U+2422 (decimal 9250)
+   defining Unicode char U+25E6 (decimal 9702)
+   defining Unicode char U+25EF (decimal 9711)
+   defining Unicode char U+266A (decimal 9834)
+   defining Unicode char U+FEFF (decimal 65279)
+))
 LaTeX Info: Redefining \oldstylenums on input line 334.
 Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 349.
 Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 350.
@@ -328,23 +402,23 @@ nment
 
 (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count106
+\c@float@type=\count107
 \float@exts=\toks21
-\float@box=\box30
+\float@box=\box31
 \@float@everytoks=\toks22
-\@floatcapt=\box31
+\@floatcapt=\box32
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \@float@every@algorithm=\toks23
-\c@algorithm=\count107
+\c@algorithm=\count108
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
-Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
+Package: fontenc 2018/08/11 v2.0j Standard LaTeX package
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
-File: t1enc.def 2017/04/05 v2.0i Standard LaTeX file
+File: t1enc.def 2018/08/11 v2.0j Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 )
 LaTeX Font Info:    Try loading font information for T1+ptm on input line 105.
@@ -359,15 +433,15 @@ Package: algpseudocode
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count108
-\c@ALG@rem=\count109
-\c@ALG@nested=\count110
+\c@ALG@line=\count109
+\c@ALG@rem=\count110
+\c@ALG@nested=\count111
 \ALG@tlm=\skip47
 \ALG@thistlm=\skip48
-\c@ALG@Lnr=\count111
-\c@ALG@blocknr=\count112
-\c@ALG@storecount=\count113
-\c@ALG@tmpcounter=\count114
+\c@ALG@Lnr=\count112
+\c@ALG@blocknr=\count113
+\c@ALG@storecount=\count114
+\c@ALG@tmpcounter=\count115
 \ALG@tmplength=\skip49
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
@@ -376,6 +450,15 @@ Document Style - pseudocode environments for use with the `algorithmicx' style
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 20.
  (./paper.aux
+
+LaTeX Warning: Label `fig:cluster' multiply defined.
+
+
+LaTeX Warning: Label `fig:cluster' multiply defined.
+
+
+LaTeX Warning: Label `fig:cluster' multiply defined.
+
 
 LaTeX Warning: Label `fig:cluster' multiply defined.
 
@@ -468,16 +551,16 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 81--82
 
 
 ] [2]
-LaTeX Font Info:    Try loading font information for U+lasy on input line 175.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 164.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 175.
+LaTeX Font Info:    Try loading font information for U+msa on input line 164.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 175.
+LaTeX Font Info:    Try loading font information for U+msb on input line 164.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -485,6 +568,15 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: Imagenes/cluster.eps Graphic file (type eps)
 
 <Imagenes/cluster.eps>
+Overfull \hbox (6.0pt too wide) in paragraph at lines 229--230
+ |[] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+File: Imagenes/deploy.eps Graphic file (type eps)
+<Imagenes/deploy.eps>
 Overfull \hbox (6.0pt too wide) in paragraph at lines 240--241
  |[] 
  []
@@ -493,40 +585,62 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 240--241
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [3]
-File: Imagenes/deploy.eps Graphic file (type eps)
- <Imagenes/deploy.eps>
-Overfull \hbox (6.0pt too wide) in paragraph at lines 251--252
+File: Imagenes/deploymentyaml.eps Graphic file (type eps)
+ <Imagenes/deploymentyaml.eps>
+Overfull \hbox (6.0pt too wide) in paragraph at lines 262--263
  |[] 
  []
 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 File: Imagenes/apiresp1.eps Graphic file (type eps)
 <Imagenes/apiresp1.eps>
-Overfull \hbox (6.0pt too wide) in paragraph at lines 286--287
+Overfull \hbox (6.0pt too wide) in paragraph at lines 284--285
  |[] 
  []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 [4]
 File: Imagenes/schedlat.eps Graphic file (type eps)
  <Imagenes/schedlat.eps>
-Overfull \hbox (6.0pt too wide) in paragraph at lines 301--302
+Overfull \hbox (6.0pt too wide) in paragraph at lines 299--300
  |[] 
  []
 
 File: Imagenes/netcong1.eps Graphic file (type eps)
 <Imagenes/netcong1.eps>
-Overfull \hbox (6.0pt too wide) in paragraph at lines 323--324
+Overfull \hbox (6.0pt too wide) in paragraph at lines 321--322
  |[] 
  []
 
 File: Imagenes/netcong2.eps Graphic file (type eps)
 <Imagenes/netcong2.eps>
-Overfull \hbox (6.0pt too wide) in paragraph at lines 330--331
+Overfull \hbox (6.0pt too wide) in paragraph at lines 328--329
+ |[] 
+ []
+
+File: Imagenes/distribution1.eps Graphic file (type eps)
+<Imagenes/distribution1.eps>
+Overfull \hbox (6.0pt too wide) in paragraph at lines 337--338
+ |[] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5]
+File: Imagenes/distribution2.eps Graphic file (type eps)
+ <Imagenes/distribution2.eps>
+Overfull \hbox (6.0pt too wide) in paragraph at lines 358--359
  |[] 
  []
 
 File: Imagenes/unfavnet1.eps Graphic file (type eps)
 <Imagenes/unfavnet1.eps>
-Overfull \hbox (6.0pt too wide) in paragraph at lines 352--353
+Overfull \hbox (6.0pt too wide) in paragraph at lines 368--369
  |[] 
  []
 
@@ -535,14 +649,14 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 File: Imagenes/unfavnet2.eps Graphic file (type eps)
 <Imagenes/unfavnet2.eps>
-Overfull \hbox (6.0pt too wide) in paragraph at lines 359--360
+Overfull \hbox (6.0pt too wide) in paragraph at lines 375--376
  |[] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5] (./paper.bbl
+[6] (./paper.bbl
 Underfull \hbox (badness 6775) in paragraph at lines 90--93
 \T1/ptm/m/n/8 page at https://hub.docker.com/r/pablojara/network_aware_schedule
 r,
@@ -578,18 +692,20 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[6] (./paper.aux)
+[7
+
+] (./paper.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4369 strings out of 492983
- 61469 string characters out of 6134921
- 128157 words of memory out of 5000000
- 7884 multiletter control sequences out of 15000+600000
+ 4429 strings out of 492616
+ 62098 string characters out of 6131417
+ 134158 words of memory out of 5000000
+ 8286 multiletter control sequences out of 15000+600000
  98105 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,8n,35p,1332b,293s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,8n,35p,1332b,294s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on paper.dvi (6 pages, 46124 bytes).
+Output written on paper.dvi (7 pages, 46376 bytes).
