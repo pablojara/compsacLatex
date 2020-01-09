@@ -86,6 +86,12 @@ V.~Medel, J.~Bañares, U.~Arronategui, and O.~Rana, ``Modelling performance and
   \emph{IEEE Computer/ACM Internation Conference on Utility and Cloud
   Computing}, pp. 20--23, 2018.
 
+\bibitem{Santos19}
+J.~{Santos}, T.~{Wauters}, B.~{Volckaert}, and F.~{De Turck}, ``Towards
+  network-aware resource provisioning in kubernetes for fog computing
+  applications,'' in \emph{2019 IEEE Conference on Network Softwarization
+  (NetSoft)}, Paris, France, 2019.
+
 \bibitem{dockerhub}
 ``Network-aware scheduler docker image available at docker hub,'' Web page at
   \url{https://hub.docker.com/r/pablojara/network\_aware\_scheduler}, Date of
